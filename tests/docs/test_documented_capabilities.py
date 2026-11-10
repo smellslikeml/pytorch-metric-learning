@@ -9,6 +9,7 @@ from pytorch_metric_learning import losses
 
 DOCS = Path(__file__).resolve().parents[2] / "docs"
 LEARNABLE = {
+    "AdaFaceLoss": (3, 4),
     "ArcFaceLoss": (3, 4),
     "CenterLoss": (3, 4),
     "CosFaceLoss": (3, 4),

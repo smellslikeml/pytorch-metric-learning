@@ -32,6 +32,7 @@ nav:
         - TripletMarginLoss: losses/triplet_margin_loss.md
         - TupletMarginLoss: losses/tuplet_margin_loss.md
       - Classification and proxy objectives:
+        - AdaFaceLoss: losses/adaface_loss.md
         - ArcFaceLoss: losses/arcface_loss.md
         - CosFaceLoss: losses/cosface_loss.md
         - DynamicArcFaceLoss: losses/dynamic_arcface_loss.md
@@ -89,6 +90,7 @@ nav:
       - 3.0.0 large-triplet timings: benchmarks/gpu-3.0.0/large-triplet/README.md
     - Release notes:
       - All releases: release-notes/index.md
+      - 3.1.0: release-notes/3.1.0.md
       - 3.0.2: release-notes/3.0.2.md
       - 3.0.1: release-notes/3.0.1.md
       - 3.0.0: release-notes/3.0.0.md

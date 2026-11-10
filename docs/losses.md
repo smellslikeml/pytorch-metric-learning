@@ -311,7 +311,7 @@ regularizer still adds its penalty.
 ## Miner weights
 
 Losses that do not consume pairs or triplets directly can still use a miner's
-output. ArcFaceLoss, CosFaceLoss, DynamicArcFaceLoss, FastAPLoss,
+output. AdaFaceLoss, ArcFaceLoss, CosFaceLoss, DynamicArcFaceLoss, FastAPLoss,
 LargeMarginSoftmaxLoss, NCALoss,
 NormalizedSoftmaxLoss, ProxyAnchorLoss, ProxyNCALoss, SmoothAPLoss,
 SoftTripleLoss, SphereFaceLoss, and SubCenterArcFaceLoss turn `indices_tuple`
@@ -351,14 +351,14 @@ arguments:
   `functools.partial(torch.nn.init.kaiming_uniform_, a=1, mode="fan_out")`. If
   `None`, the loss's `default_weight_init(weight)` is used, as listed below.
 
-| Loss                                                                                                                                                                                     | `weight` shape | Default initialization                                           |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------- |
-| [ArcFaceLoss](losses/arcface_loss.md), [CosFaceLoss](losses/cosface_loss.md), [LargeMarginSoftmaxLoss](losses/large_margin_softmax_loss.md), [SphereFaceLoss](losses/sphereface_loss.md) | `(C, D)`       | `torch.nn.init.normal_`                                          |
-| [SubCenterArcFaceLoss](losses/subcenter_arcface_loss.md), [DynamicArcFaceLoss](losses/dynamic_arcface_loss.md)                                                                           | `(C·S, D)`     | `torch.nn.init.normal_`                                          |
-| [NormalizedSoftmaxLoss](losses/normalized_softmax_loss.md)                                                                                                                               | `(C, D)`       | `torch.nn.init.normal_`                                          |
-| [ProxyAnchorLoss](losses/proxy_anchor_loss.md)                                                                                                                                           | `(C, D)`       | `torch.nn.init.kaiming_normal_(mode="fan_out")`                  |
-| [ProxyNCALoss](losses/proxy_nca_loss.md)                                                                                                                                                 | `(C, D)`       | `torch.nn.init.normal_`                                          |
-| [SoftTripleLoss](losses/soft_triple_loss.md)                                                                                                                                             | `(C·K, D)`     | `torch.nn.init.kaiming_uniform_(a=math.sqrt(5), mode="fan_out")` |
+| Loss                                                                                                                                                                                                                            | `weight` shape | Default initialization                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------- |
+| [AdaFaceLoss](losses/adaface_loss.md), [ArcFaceLoss](losses/arcface_loss.md), [CosFaceLoss](losses/cosface_loss.md), [LargeMarginSoftmaxLoss](losses/large_margin_softmax_loss.md), [SphereFaceLoss](losses/sphereface_loss.md) | `(C, D)`       | `torch.nn.init.normal_`                                          |
+| [SubCenterArcFaceLoss](losses/subcenter_arcface_loss.md), [DynamicArcFaceLoss](losses/dynamic_arcface_loss.md)                                                                                                                  | `(C·S, D)`     | `torch.nn.init.normal_`                                          |
+| [NormalizedSoftmaxLoss](losses/normalized_softmax_loss.md)                                                                                                                                                                      | `(C, D)`       | `torch.nn.init.normal_`                                          |
+| [ProxyAnchorLoss](losses/proxy_anchor_loss.md)                                                                                                                                                                                  | `(C, D)`       | `torch.nn.init.kaiming_normal_(mode="fan_out")`                  |
+| [ProxyNCALoss](losses/proxy_nca_loss.md)                                                                                                                                                                                        | `(C, D)`       | `torch.nn.init.normal_`                                          |
+| [SoftTripleLoss](losses/soft_triple_loss.md)                                                                                                                                                                                    | `(C·K, D)`     | `torch.nn.init.kaiming_uniform_(a=math.sqrt(5), mode="fan_out")` |
 
 `D` is the embedding size, `C` the number of classes, `S` the sub-centers per
 class, and `K` the centers per class.
@@ -399,7 +399,7 @@ omit the training margin, so they suit prediction and evaluation:
 
 | Loss                                     | `get_logits` returns                                                           |
 | ---------------------------------------- | ------------------------------------------------------------------------------ |
-| ArcFaceLoss, CosFaceLoss                 | `scale` times the cosine similarity to each class weight                       |
+| AdaFaceLoss, ArcFaceLoss, CosFaceLoss    | `scale` times the cosine similarity to each class weight                       |
 | SubCenterArcFaceLoss, DynamicArcFaceLoss | `scale` times the cosine similarity to each class's closest sub-center         |
 | LargeMarginSoftmaxLoss                   | `scale` times the weight norm, the embedding norm, and the cosine              |
 | SphereFaceLoss                           | `scale` times the embedding norm and the cosine                                |
@@ -475,6 +475,9 @@ These learn one vector per class, or per class center, so they need only labels
 and work with ordinary random batches. Train their parameters with the model;
 see [learnable weight arguments](#learnable-weight-arguments).
 
+- [AdaFaceLoss](losses/adaface_loss.md): margins that adapt to each sample's
+  embedding norm, a proxy for sample quality, for recognition with noisy
+  images.
 - [ArcFaceLoss](losses/arcface_loss.md): an additive angular margin, widely
   used for face recognition and other tasks with many classes.
 - [CosFaceLoss](losses/cosface_loss.md): an additive cosine margin.
