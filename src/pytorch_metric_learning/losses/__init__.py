@@ -1,3 +1,4 @@
+from .adaface_loss import AdaFaceLoss
 from .anchor_batched_backward import anchor_batched_backward
 from .angular_loss import AngularLoss
 from .arcface_loss import ArcFaceLoss
@@ -49,6 +50,7 @@ from .tuplet_margin_loss import TupletMarginLoss
 from .vicreg_loss import VICRegLoss
 
 __all__ = [
+    "AdaFaceLoss",
     "AngularLoss",
     "ArcFaceLoss",
     "BaseMetricLossFunction",

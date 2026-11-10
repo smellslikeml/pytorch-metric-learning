@@ -45,6 +45,7 @@ so the provenance stays discoverable.
 | [geonm/proxy-anchor-loss](https://github.com/geonm/proxy-anchor-loss)                                | None published    | Reference implementation consulted for `losses/proxy_anchor_loss.py`.                                                                                                                  |
 | [interestingzhuo/PNPloss](https://github.com/interestingzhuo/PNPloss)                                | None published    | Reference implementation consulted for `losses/pnp_loss.py`.                                                                                                                           |
 | [kunhe/Deep-Metric-Learning-Baselines](https://github.com/kunhe/Deep-Metric-Learning-Baselines)      | None published    | Its hierarchical batch construction informed `samplers/hierarchical_sampler.py`.                                                                                                       |
+| [mk-minchul/AdaFace](https://github.com/mk-minchul/AdaFace)                                          | MIT               | Reference implementation consulted for `losses/adaface_loss.py`, which is reimplemented from the paper.                                                                                |
 | [RegularFace](http://kaizhao.net/regularface) by Kai Zhao                                            | None stated       | Reference for `regularizers/regular_face_regularizer.py`.                                                                                                                              |
 
 If a future change copies code from one of these sources, it must instead meet
@@ -69,7 +70,9 @@ contributed in [issue 290](https://github.com/KevinMusgrave/pytorch-metric-learn
 The MultiSupConLoss reference values were computed by Qibin Liang in
 [pull request 667](https://github.com/KevinMusgrave/pytorch-metric-learning/pull/667)
 by running [WolodjaZ/MultiSupContrast](https://github.com/WolodjaZ/MultiSupContrast)
-`losses.py`; no code from that repository is included.
+`losses.py`; no code from that repository is included. The AdaFaceLoss test
+reference reimplements the formulas of `head.py` in
+[mk-minchul/AdaFace](https://github.com/mk-minchul/AdaFace) above in float64.
 
 ## License texts
 
